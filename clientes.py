@@ -24,7 +24,7 @@ with col_izq:
     st.image("https://static.streamlit.io/examples/cat.jpg")
 
 with col_cent:
-    st.image("https://static.streamlit.io/examples/dog.jpg")
+    # st.image("https://static.streamlit.io/examples/dog.jpg")
 
 with col_der:
     st.image("https://static.streamlit.io/examples/dog.jpg")
