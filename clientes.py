@@ -1,7 +1,7 @@
 import streamlit as st
 from supabase import create_client, Client
 
-st.title("Modulo de Clientes")
+st.title("Modulo de Clientes 1")
 
 # Conexión con Supabase
 url = st.secrets["supabase"]["url"]
