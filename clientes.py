@@ -21,7 +21,7 @@ st.set_page_config(
 col_izq, col_cent, col_der = st.columns(3)
 
 with col_izq:
-    st.image("https://github.com/mikekarim07/copse/blob/main/kalatax.png", width=120)
+    st.image("kalatax.png", width=120)
 
 with col_cent:
     st.write("")
