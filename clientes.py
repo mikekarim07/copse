@@ -1,6 +1,19 @@
 import streamlit as st
 from supabase import create_client, Client
 
+st.set_page_config(
+    page_title="COPSE - Clientes",
+    page_icon="📈",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    menu_items={
+        'Get Help': 'mailto:miguel.karim@karimortega.com'
+    }
+)
+
+
+
+
 st.title("Modulo de Clientes 1")
 
 # Conexión con Supabase
