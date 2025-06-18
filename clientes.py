@@ -49,3 +49,56 @@ else:
         supabase.auth.sign_out()
         st.session_state.user = None
         st.rerun()
+
+# import streamlit as st
+# from supabase import create_client, Client
+
+# # Conexión a Supabase
+# url = st.secrets["supabase"]["url"]
+# key = st.secrets["supabase"]["key"]
+# supabase: Client = create_client(url, key)
+
+# Verifica que haya usuario logueado
+if "user" not in st.session_state or st.session_state.user is None:
+    st.warning("Inicia sesión para acceder al dashboard.")
+    st.stop()
+
+# Obtener ID del usuario logueado
+user_id = st.session_state.user.user.id
+
+# Obtener su perfil en la tabla usuarios
+perfil_resp = supabase.table("usuarios").select("*").eq("id", user_id).single().execute()
+perfil = perfil_resp.data
+
+# Validar rol
+if not perfil["es_admin"] or perfil["tipo_usuario"] != "cliente":
+    st.error("Acceso restringido a usuarios administradores de clientes.")
+    st.stop()
+
+st.title("Dashboard del Cliente Administrador")
+
+# Obtener los permisos del usuario para determinar acceso a entidades
+permisos_resp = supabase.table("permisos_usuario").select("entidad_legal_id").eq("usuario_id", user_id).execute()
+entidades_ids = [p["entidad_legal_id"] for p in permisos_resp.data]
+
+# Obtener las entidades legales visibles
+entidades_resp = supabase.table("entidades_legales").select("id, nombre, rfc, activo").in_("id", entidades_ids).execute()
+entidades = entidades_resp.data
+
+st.subheader("Entidades Legales Asignadas")
+if not entidades:
+    st.info("No tienes entidades legales asignadas.")
+else:
+    for entidad in entidades:
+        st.markdown(f"**{entidad['nombre']}** - RFC: {entidad['rfc']} {'✅' if entidad['activo'] else '❌'}")
+
+# Obtener proveedores relacionados a esas entidades
+proveedores_resp = supabase.rpc("get_proveedores_por_entidades", {"entidades_ids": entidades_ids}).execute()
+proveedores = proveedores_resp.data if proveedores_resp.data else []
+
+st.subheader("Proveedores Relacionados")
+if not proveedores:
+    st.info("No hay proveedores registrados para tus entidades.")
+else:
+    for p in proveedores:
+        st.markdown(f"- **{p['nombre']}** (RFC: {p['rfc']})")
