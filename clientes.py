@@ -21,7 +21,7 @@ st.set_page_config(
 col_izq, col_cent, col_der = st.columns(3)
 
 with col_izq:
-    st.image("https://static.streamlit.io/examples/cat.jpg")
+    st.image("https://www.kellanovaus.com/content/dam/NorthAmerica/kellanova-us/images/logo.svg", width=120)
 
 with col_cent:
     st.write("")
