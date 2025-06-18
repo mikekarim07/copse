@@ -18,16 +18,17 @@ st.set_page_config(
     }
 )
 
-col_izq, col_cent, col_der = st.columns(3)
+st.image("kalatax.png", width=200)
+# col_izq, col_cent, col_der = st.columns(3)
 
-with col_izq:
-    st.image("kalatax.png", width=120)
+# with col_izq:
+#     st.image("kalatax.png", width=120)
 
-with col_cent:
-    st.write("")
+# with col_cent:
+#     st.write("")
 
-with col_der:
-    st.image("https://static.streamlit.io/examples/dog.jpg")
+# with col_der:
+#     st.image("https://static.streamlit.io/examples/dog.jpg")
 
 # --- Estado de sesión ---
 if "user" not in st.session_state:
