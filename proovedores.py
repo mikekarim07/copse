@@ -15,5 +15,37 @@ st.title("Modulo de Proovedores")
 
 st.write("Bienvenido Carlos")
 
+import streamlit as st
+import plotly.graph_objects as go
+
+# Título
+st.title("Ejemplo de Gauge Chart")
+
+# Valor a mostrar
+value = st.slider("Selecciona un valor", 0, 100, 50)
+
+# Crear gráfico de tipo Gauge
+fig = go.Figure(go.Indicator(
+    mode="gauge+number",
+    value=value,
+    title={'text': "Progreso"},
+    gauge={
+        'axis': {'range': [0, 100]},
+        'bar': {'color': "green"},
+        'steps': [
+            {'range': [0, 50], 'color': "lightgray"},
+            {'range': [50, 100], 'color': "gray"}
+        ],
+        'threshold': {
+            'line': {'color': "red", 'width': 4},
+            'thickness': 0.75,
+            'value': 80
+        }
+    }
+))
+
+# Mostrar en Streamlit
+st.plotly_chart(fig)
+
 
 
