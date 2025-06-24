@@ -73,6 +73,7 @@ porcentaje = round((cumplidos / total) * 100, 2)
 # Título y métrica
 st.title("Cumplimiento Documental del Proveedor")
 st.subheader("PSE Tijuana, S.A. de C.V.")
+st.write("Periodo: Abril 2025")
 st.metric("Porcentaje de cumplimiento", f"{porcentaje}%")
 
 # Mostramos los documentos con su estado y link si aplica
