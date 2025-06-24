@@ -11,9 +11,10 @@ st.set_page_config(
 )
 
 st.image("Logo KalaTax.png", width=120)
-st.title("Modulo de Proovedores")
+st.title("Modulo de Clientes")
 
-st.write("Bienvenido Carlos")
+st.write("Carlos Lara")
+st.
 
 import streamlit as st
 import plotly.graph_objects as go
@@ -71,6 +72,7 @@ porcentaje = round((cumplidos / total) * 100, 2)
 
 # Título y métrica
 st.title("Cumplimiento Documental del Proveedor")
+st.subheader("PSE Tijuana, S.A. de C.V.")
 st.metric("Porcentaje de cumplimiento", f"{porcentaje}%")
 
 # Mostramos los documentos con su estado y link si aplica
