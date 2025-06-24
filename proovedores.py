@@ -43,10 +43,8 @@ import plotly.graph_objects as go
 # st.plotly_chart(fig)
 
 import streamlit as st
-import pandas as pd
-import streamlit as st
 
-# Datos base
+# Documentos requeridos
 documentos = [
     "Contrato de prestación de servicios",
     "Registro REPSE",
@@ -58,20 +56,16 @@ documentos = [
     "Opinión de Cumplimiento SAT / IMSS / INFONAVIT"
 ]
 
-entregados = [
-    "Contrato de prestación de servicios",
-    "Registro REPSE",
-    "CFDI’s de Nómina",
-    "Opinión de Cumplimiento SAT / IMSS / INFONAVIT"
-]
-
-# Simulamos links (en producción, usarías una URL real)
-fake_links = {
-    doc: f"[📄 Ver archivo](#)" for doc in entregados
+# Documentos entregados y links reales (ejemplo: a google.com)
+documentos_entregados = {
+    "Contrato de prestación de servicios": "https://google.com/contrato.pdf",
+    "Registro REPSE": "https://google.com/repse.pdf",
+    "CFDI’s de Nómina": "https://google.com/nomina.pdf",
+    "Opinión de Cumplimiento SAT / IMSS / INFONAVIT": "https://google.com/opinion.pdf"
 }
 
-# Calculamos cumplimiento
-cumplidos = len(entregados)
+# Cálculo del porcentaje
+cumplidos = len(documentos_entregados)
 total = len(documentos)
 porcentaje = round((cumplidos / total) * 100, 2)
 
@@ -79,16 +73,21 @@ porcentaje = round((cumplidos / total) * 100, 2)
 st.title("Cumplimiento Documental del Proveedor")
 st.metric("Porcentaje de cumplimiento", f"{porcentaje}%")
 
-# Mostramos cada documento con estado y link (si aplica)
+# Mostramos los documentos con su estado y link si aplica
 st.markdown("---")
 for doc in documentos:
-    entregado = doc in entregados
+    entregado = doc in documentos_entregados
     icono = "✅" if entregado else "❌"
-    link = fake_links.get(doc, "")
-    
+    link = documentos_entregados.get(doc)
+    texto_link = ""
+
+    if link:
+        nombre_archivo = doc.split()[0].replace("’", "").replace("é", "e").replace("ó", "o").capitalize() + ".pdf"
+        texto_link = f'<a href="{link}" target="_blank">{nombre_archivo}</a>'
+
     st.markdown(f"""
     <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5em 1em; border-bottom: 1px solid #ddd;">
         <div style="font-weight: bold;">{icono} {doc}</div>
-        <div>{link}</div>
+        <div>{texto_link}</div>
     </div>
     """, unsafe_allow_html=True)
