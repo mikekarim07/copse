@@ -44,9 +44,10 @@ import plotly.graph_objects as go
 
 import streamlit as st
 import pandas as pd
+import streamlit as st
 
-# Lista de documentos requeridos
-documentos_requeridos = [
+# Datos base
+documentos = [
     "Contrato de prestación de servicios",
     "Registro REPSE",
     "Comprobantes de pago de cuotas obrero-patronales IMSS, INFONAVIT",
@@ -57,28 +58,37 @@ documentos_requeridos = [
     "Opinión de Cumplimiento SAT / IMSS / INFONAVIT"
 ]
 
-# Simulamos los documentos entregados por el proveedor (puedes cambiarlo por tu fuente real de datos)
-documentos_entregados = [
+entregados = [
     "Contrato de prestación de servicios",
     "Registro REPSE",
     "CFDI’s de Nómina",
     "Opinión de Cumplimiento SAT / IMSS / INFONAVIT"
 ]
 
-# Creamos el DataFrame con estado de cumplimiento
-df = pd.DataFrame({
-    "Documento": documentos_requeridos,
-    "Entregado": [doc in documentos_entregados for doc in documentos_requeridos]
-})
+# Simulamos links (en producción, usarías una URL real)
+fake_links = {
+    doc: f"[📄 Ver archivo](#)" for doc in entregados
+}
 
-# Calculamos porcentaje de cumplimiento
-cumplidos = df["Entregado"].sum()
-total = len(df)
-porcentaje_cumplimiento = round((cumplidos / total) * 100, 2)
+# Calculamos cumplimiento
+cumplidos = len(entregados)
+total = len(documentos)
+porcentaje = round((cumplidos / total) * 100, 2)
 
-# Interfaz Streamlit
+# Título y métrica
 st.title("Cumplimiento Documental del Proveedor")
-st.metric("Porcentaje de cumplimiento", f"{porcentaje_cumplimiento}%")
-st.dataframe(df.replace({True: "✅", False: "❌"}), use_container_width=True)
+st.metric("Porcentaje de cumplimiento", f"{porcentaje}%")
 
-
+# Mostramos cada documento con estado y link (si aplica)
+st.markdown("---")
+for doc in documentos:
+    entregado = doc in entregados
+    icono = "✅" if entregado else "❌"
+    link = fake_links.get(doc, "")
+    
+    st.markdown(f"""
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5em 1em; border-bottom: 1px solid #ddd;">
+        <div style="font-weight: bold;">{icono} {doc}</div>
+        <div>{link}</div>
+    </div>
+    """, unsafe_allow_html=True)
