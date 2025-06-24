@@ -18,17 +18,12 @@ st.write("Bienvenido Carlos")
 import streamlit as st
 import plotly.graph_objects as go
 
-# Título
-st.title("Ejemplo de Gauge Chart")
-
-# Valor a mostrar
-value = st.slider("Selecciona un valor", 0, 100, 50)
 
 # Crear gráfico de tipo Gauge
 fig = go.Figure(go.Indicator(
     mode="gauge+number",
-    value=value,
-    title={'text': "Progreso"},
+    value=75,
+    title={'text': "Porcentaje de Cumplimiento"},
     gauge={
         'axis': {'range': [0, 100]},
         'bar': {'color': "green"},
