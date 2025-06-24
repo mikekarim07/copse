@@ -14,7 +14,7 @@ st.image("Logo KalaTax.png", width=120)
 st.title("Modulo de Clientes")
 
 st.write("Carlos Lara")
-st.
+
 
 import streamlit as st
 import plotly.graph_objects as go
