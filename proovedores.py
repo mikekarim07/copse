@@ -10,7 +10,7 @@ st.set_page_config(
     }
 )
 
-st.image("logo kalata.png", width=120)
+st.image("Logo KalaTax.png", width=120)
 st.title("Modulo de Proovedores")
 
 
