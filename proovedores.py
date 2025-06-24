@@ -22,7 +22,7 @@ import plotly.graph_objects as go
 # Crear gráfico de tipo Gauge
 fig = go.Figure(go.Indicator(
     mode="gauge+number",
-    value=75,
+    value=30,
     title={'text': "Porcentaje de Cumplimiento"},
     gauge={
         'axis': {'range': [0, 100]},
